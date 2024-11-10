@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel App Prototype</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .container { max-width: 800px; margin: auto; padding: 20px; }
+        h1, h2 { color: #2c3e50; }
+        .section { margin-bottom: 20px; padding: 15px; border: 1px solid #ccc; border-radius: 8px; }
+        button { padding: 8px 16px; background-color: #3498db; color: white; border: none; border-radius: 5px; cursor: pointer; }
+        button:hover { background-color: #2980b9; }
+        ul { list-style-type: none; padding: 0; }
+        li { padding: 8px 0; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Travel App Prototype</h1>
+
+    <!-- Cuisine Recommendations Section -->
+    <div class="section">
+        <h2>Cuisine Recommendations</h2>
+        <ul id="cuisine-list">
+            <li>Loading...</li>
+        </ul>
+    </div>
+
+    <!-- Geographical Indication (GI) Products Section -->
+    <div class="section">
+        <h2>GI Products</h2>
+        <ul>
+            <li>Product 1: Handmade Pottery from City A</li>
+            <li>Product 2: Olive Oil from Region B</li>
+            <li>Product 3: Spices from City C</li>
+        </ul>
+    </div>
+
+    <!-- Landmarks & Activities Section -->
+    <div class="section">
+        <h2>Landmarks & Activities</h2>
+        <ul>
+            <li>Landmark 1: Beautiful mountain view at Location X</li>
+            <li>Landmark 2: Historical temple in City Y</li>
+            <li>Activity: Adventure sports in Region Z</li>
+        </ul>
+    </div>
+
+    <!-- Location and Notifications Section -->
+    <div class="section">
+        <h2>Location-Based Recommendations</h2>
+        <button onclick="getLocation()">Get My Location</button>
+        <p id="location-output"></p>
+    </div>
+
+</div>
+
+<script>
+    // Dummy data for cuisine recommendations
+    const cuisineData = [
+        { name: "Dish 1", description: "A famous dish with local spices" },
+        { name: "Dish 2", description: "Popular street food enjoyed by locals" },
+        { name: "Dish 3", description: "A traditional meal with a rich history" }
+    ];
+
+    // Display cuisine recommendations
+    const cuisineList = document.getElementById('cuisine-list');
+    cuisineList.innerHTML = cuisineData.map(dish => `<li><strong>${dish.name}</strong>: ${dish.description}</li>`).join('');
+
+    // Function to get user's location
+    function getLocation() {
+        const locationOutput = document.getElementById('location-output');
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    const { latitude, longitude } = position.coords;
+                    locationOutput.textContent = `Your location: ${latitude.toFixed(4)}, ${longitude.toFixed(4)}`;
+                },
+                () => {
+                    locationOutput.textContent = "Unable to retrieve your location.";
+                }
+            );
+        } else {
+            locationOutput.textContent = "Geolocation is not supported by this browser.";
+        }
+    }
+</script>
+
+</body>
+</html>
